@@ -1,0 +1,40 @@
+From 9e00da4394cc3159edec55b95019e172772ecea0 Mon Sep 17 00:00:00 2001
+From: peijiankang <peijiankang@kylinos.cn>
+Date: Thu, 9 Jun 2022 11:34:59 +0800
+Subject: [PATCH] Fix the version of kylin-photo-viewer
+
+---
+ src/view/menumodule.cpp | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/src/view/menumodule.cpp b/src/view/menumodule.cpp
+index a974db7..28e7aaa 100644
+--- a/src/view/menumodule.cpp
++++ b/src/view/menumodule.cpp
+@@ -207,6 +207,23 @@ QHBoxLayout* menuModule::initTitleBar(){
+ 
+ QVBoxLayout* menuModule::initBody(){
+     m_appVersion = VERSION_NEM;
++    QProcess proc;
++    QStringList options;
++    options << "-qa" << "|" << "grep" << "kylin-photo-viewer";
++    proc.start("rpm", options);
++    proc.waitForFinished();
++    QString dpkgInfo = proc.readAll();
++    QStringList infoList = dpkgInfo.split("\n");
++    for (int n = 0; n < infoList.size(); n++) {
++        QString strInfoLine = infoList[n];
++        if (strInfoLine.contains("kylin-photo-viewer")) {
++    	    QStringList lineInfoList = strInfoLine.split(QRegExp("-"));
++    	    if (lineInfoList.size() >= 3) {
++    	        m_appVersion = lineInfoList[3];
++    	    }
++    	    break;
++        }
++    }
+ //    QLabel* bodyIcon = new QLabel();
+     QPushButton *bodyIcon = new QPushButton();
+     bodyIcon->setFixedSize(MICON_SIZEB);
+-- 
+2.33.0
+
