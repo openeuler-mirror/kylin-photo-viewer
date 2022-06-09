@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:          kylin-photo-viewer
 Version:       1.0.2
-Release:       3
+Release:       4
 Summary:       kylin-photo-viewer
 License:       BSL-1.0 and Libpng and zlib and GPL-2.0-or-later
 URL:           https://github.com/UbuntuKylin/kylin-photo-viewer
@@ -46,6 +46,10 @@ pushd qmake-build
 %{make_install} INSTALL_ROOT=%{buildroot}
 popd 
 
+mkdir -p %{buildroot}/usr/share/kylin-user-guide/data/guide
+
+cp -r %{_builddir}/%{name}-%{version}/data/pictures %{buildroot}/usr/share/kylin-user-guide/data/guide/
+
 %files
 %{_bindir}/kylin-photo-viewer
 %{_includedir}/kylin_image_codec/kylinimagecodec.h
@@ -65,8 +69,12 @@ popd
 %{_datadir}/glib-2.0/schemas/org.ukui.log4qt.kylin-photo-viewer.gschema.xml
 %{_datadir}/kylin-photo-viewer/translations/kylin-photo-viewer_zh_CN.qm
 %{_datadir}/pixmaps/kyview_logo.png
+%{_datadir}/kylin-user-guide/data/guide/
 
 %changelog
+* Thu Jun 9 2022 peijiankang <peijiankang@kylinos.cn> - 1.0.2-4
+- add kylin-user-guide file
+
 * Thu Jun 9 2022 peijiankang <peijiankang@kylinos.cn> - 1.0.2-3
 - Fix the version of kylin-photo-viewer
 
