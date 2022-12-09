@@ -1,7 +1,6 @@
-%define debug_package %{nil}
 Name:          kylin-photo-viewer
 Version:       1.0.2
-Release:       4
+Release:       5
 Summary:       kylin-photo-viewer
 License:       BSL-1.0 and Libpng and zlib and GPL-2.0-or-later
 URL:           https://github.com/UbuntuKylin/kylin-photo-viewer
@@ -72,6 +71,9 @@ cp -r %{_builddir}/%{name}-%{version}/data/pictures %{buildroot}/usr/share/kylin
 %{_datadir}/kylin-user-guide/data/guide/
 
 %changelog
+* Thu Dec 08 2022 fushanqing <fushanqing@kylinos.cn> - 1.0.2-5
+- Enable debuginfo for fix strip
+
 * Thu Jun 9 2022 peijiankang <peijiankang@kylinos.cn> - 1.0.2-4
 - add kylin-user-guide file
 
