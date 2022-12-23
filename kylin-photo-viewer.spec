@@ -1,12 +1,11 @@
 %define debug_package %{nil}
 Name:          kylin-photo-viewer
-Version:       1.0.2
-Release:       4
+Version:       1.2.0
+Release:       1
 Summary:       kylin-photo-viewer
 License:       BSL-1.0 and Libpng and zlib and GPL-2.0-or-later
 URL:           https://github.com/UbuntuKylin/kylin-photo-viewer
 Source0:       %{name}-%{version}.tar.gz
-Patch01:       0001-Fix-the-version-of-kylin-photo-viewer.patch
 
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qtchooser
@@ -30,7 +29,6 @@ Photo viewer, support to view, zoom and rotate images of various formats
 
 %prep
 %setup -q
-%patch1 -p1
 
 
 %build
@@ -68,10 +66,14 @@ cp -r %{_builddir}/%{name}-%{version}/data/pictures %{buildroot}/usr/share/kylin
 %{_datadir}/glib-2.0/schemas/org.kylin.photo.viewer.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.ukui.log4qt.kylin-photo-viewer.gschema.xml
 %{_datadir}/kylin-photo-viewer/translations/kylin-photo-viewer_zh_CN.qm
+%{_datadir}/kylin-photo-viewer/translations/kylin-photo-viewer_bo_CN.qm
 %{_datadir}/pixmaps/kyview_logo.png
 %{_datadir}/kylin-user-guide/data/guide/
 
 %changelog
+* Mon Oct 24 2022 tanyulong <tanyulong@kylinos.cn> - 1.2.0-1
+- update upstream version 1.2.0
+
 * Thu Jun 9 2022 peijiankang <peijiankang@kylinos.cn> - 1.0.2-4
 - add kylin-user-guide file
 
