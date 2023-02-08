@@ -1,0 +1,61 @@
+From f91d8c6daf58bd43e7e9619ca4536f3b1e970264 Mon Sep 17 00:00:00 2001
+From: peijiankang <peijiankang@kylinos.cn>
+Date: Tue, 7 Feb 2023 14:19:25 +0800
+Subject: [PATCH] fix compile error of kylin-photo-viewer
+
+---
+ codec/kylinimagecodec/image_load/image_load.cpp | 1 +
+ codec/kylinimagecodec/image_save/image_save.cpp | 1 +
+ codec/kylinimagecodec/kylinimagecodec.cpp       | 4 ++--
+ codec/kylinimagecodec/kylinimagecodec.pro       | 2 +-
+ 4 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/codec/kylinimagecodec/image_load/image_load.cpp b/codec/kylinimagecodec/image_load/image_load.cpp
+index ae4c559..4d6c182 100644
+--- a/codec/kylinimagecodec/image_load/image_load.cpp
++++ b/codec/kylinimagecodec/image_load/image_load.cpp
+@@ -1,3 +1,4 @@
++#define STB_IMAGE_IMPLEMENTATION
+ #include "kylinimagecodec.h"
+ 
+ MatResult KylinImageCodec::loadImageToMat(QString path)
+diff --git a/codec/kylinimagecodec/image_save/image_save.cpp b/codec/kylinimagecodec/image_save/image_save.cpp
+index 62ebd95..2d57ce7 100644
+--- a/codec/kylinimagecodec/image_save/image_save.cpp
++++ b/codec/kylinimagecodec/image_save/image_save.cpp
+@@ -1,3 +1,4 @@
++#define STB_IMAGE_WRITE_IMPLEMENTATION
+ #include "kylinimagecodec.h"
+ 
+ QStringList* KylinImageCodec::m_list = new QStringList;
+diff --git a/codec/kylinimagecodec/kylinimagecodec.cpp b/codec/kylinimagecodec/kylinimagecodec.cpp
+index 24a429b..09b9962 100644
+--- a/codec/kylinimagecodec/kylinimagecodec.cpp
++++ b/codec/kylinimagecodec/kylinimagecodec.cpp
+@@ -71,8 +71,8 @@ QHash<QString, int> KylinImageCodec::creatFormats()
+     tmpFormats.insert("DDS",FIF_DDS);
+     tmpFormats.insert("GIF",FIF_GIF);
+     tmpFormats.insert("HDR",FIF_HDR);
+-    tmpFormats.insert("FAX",FIF_FAXG3);
+-    tmpFormats.insert("G3",FIF_FAXG3);
++//    tmpFormats.insert("FAX",FIF_FAXG3);
++//    tmpFormats.insert("G3",FIF_FAXG3);
+     tmpFormats.insert("SGI",FIF_SGI);
+     tmpFormats.insert("CUT",FIF_CUT);
+     tmpFormats.insert("JNG",FIF_JNG);
+diff --git a/codec/kylinimagecodec/kylinimagecodec.pro b/codec/kylinimagecodec/kylinimagecodec.pro
+index 49413d6..1db55c5 100644
+--- a/codec/kylinimagecodec/kylinimagecodec.pro
++++ b/codec/kylinimagecodec/kylinimagecodec.pro
+@@ -24,7 +24,7 @@ LIBS += -lopencv_core \
+         -lopencv_imgproc \
+ 
+ #stb
+-LIBS += -lstb \
++#LIBS += -lstb \
+ 
+ #gif
+ LIBS += -lgif \
+-- 
+2.33.0
+
