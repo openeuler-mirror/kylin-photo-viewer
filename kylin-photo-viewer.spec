@@ -1,11 +1,12 @@
 Name:          kylin-photo-viewer
 Version:       1.2.0
-Release:       2
+Release:       3
 Summary:       kylin-photo-viewer
 License:       BSL-1.0 and Libpng and zlib and GPL-2.0-or-later
 URL:           https://github.com/UbuntuKylin/kylin-photo-viewer
 Source0:       %{name}-%{version}.tar.gz
 Patch01:       0001-fix-compile-error-of-kylin-photo-viewer.patch
+Patch02:       0002-fix-clang.patch
 
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qtchooser
@@ -28,14 +29,17 @@ BuildRequires: peony libpeony-dev
 Photo viewer, support to view, zoom and rotate images of various formats
 
 %prep
-%setup -q
-%patch01 -p1
+%autosetup -p1
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
 mkdir qmake-build
 pushd qmake-build
+%if "%toolchain" == "clang"
+%{qmake_qt5} -spec linux-clang ..
+%else 
 %{qmake_qt5} ..
+%endif
 %{make_build}
 popd 
 
@@ -72,6 +76,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas &> /dev/null ||:
 %{_datadir}/kylin-user-guide/data/guide/
 
 %changelog
+* Tue Jun 20 2023 yoo <sunyuechi@iscas.ac.cn> - 1.2.0-3
+- fix clang build error
+
 * Wed Feb 1 2023 peijiankang <peijiankang@kylinos.cn> - 1.2.0-2
 - add build debuginfo and debugsource
 

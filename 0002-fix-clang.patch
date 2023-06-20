@@ -1,0 +1,12 @@
+diff -u -r kylin-photo-viewer-1.2.0/src/view/menumodule.cpp kylin-photo-viewer-1.2.0/src/view/menumodule.cpp
+--- kylin-photo-viewer-1.2.0/src/view/menumodule.cpp	2022-03-04 09:46:00.000000000 +0800
++++ kylin-photo-viewer-1.2.0/src/view/menumodule.cpp	2023-06-16 00:05:31.000000000 +0800
+@@ -2,7 +2,7 @@
+ #include "kyview.h"
+ #include "xatom-helper.h"
+ #include "sizedate.h"
+-menuModule::menuModule(QWidget *parent = nullptr) : QWidget(parent)
++menuModule::menuModule(QWidget *parent) : QWidget(parent)
+ {
+     init();
+ }
